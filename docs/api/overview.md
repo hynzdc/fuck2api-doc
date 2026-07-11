@@ -1,11 +1,5 @@
 # OAI 对话接口对接文档
 
-> 适用场景：通过 fuck2api 调用 OpenAI 兼容的对话接口。  
-> fuck2api 域名：`https://fxxkapi.top`  
-> 文档核对日期：2026-07-11
-
----
-
 ## 1. 接口概览
 
 fuck2api 提供 OpenAI 兼容接口。直接发送 HTTP 请求时，请使用带 `/v1` 的 API Base URL：
@@ -26,8 +20,6 @@ https://fxxkapi.top/v1
 > - 如果软件要求填写“站点域名”，并由软件自动拼接 `/v1`，填写：`https://fxxkapi.top`
 > - 如果软件或 SDK 要求填写 OpenAI `baseURL` / `base_url`，通常填写：`https://fxxkapi.top/v1`
 > - 不要把 Base URL 填成 `.../chat/completions`，接口路径应由 SDK 自动拼接。
-
----
 
 ## 2. 鉴权方式
 
@@ -58,8 +50,6 @@ Content-Type: application/json
 
 > API Key 必须仅保存在服务端或安全的环境变量中，不要写入浏览器前端代码、公开仓库或客户端安装包。
 
----
-
 ## 3. 查询可用模型
 
 不同账号、渠道和套餐可调用的模型可能不同，因此接入前应先查询模型列表，不建议在业务代码中盲目写死模型名称。
@@ -87,8 +77,6 @@ curl --request GET 'https://fxxkapi.top/v1/models' \
 ```
 
 后续请求中的 `model` 应填写 `data[].id` 返回的实际模型 ID。
-
----
 
 ## 4. 普通对话
 
@@ -183,8 +171,6 @@ curl --request POST 'https://fxxkapi.top/v1/chat/completions' \
 choices[0].message.content
 ```
 
----
-
 ## 5. 多轮对话
 
 Chat Completions 接口本身通常是无状态的。业务端需要保存历史消息，并在下一次请求时重新传入必要上下文。
@@ -220,8 +206,6 @@ Chat Completions 接口本身通常是无状态的。业务端需要保存历史
 2. 对较早消息进行摘要，避免上下文无限增长。
 3. 不要完全依赖前端保存聊天记录，重要会话应存入服务端数据库。
 4. 对用户输入、模型输出和 Token 使用量建立日志，但应脱敏。
-
----
 
 ## 6. 流式对话（SSE）
 
@@ -262,8 +246,6 @@ data: [DONE]
 3. 收到 `data: [DONE]` 后结束读取。
 4. 将每个数据块中的 `choices[0].delta.content` 依次拼接。
 5. 流中断时不要直接重复扣费请求；应结合业务 ID、日志和重试策略处理。
-
----
 
 ## 7. JavaScript / Node.js 对接
 
@@ -323,8 +305,6 @@ OAI_API_KEY=YOUR_API_KEY
 OAI_MODEL=MODEL_ID
 ```
 
----
-
 ## 8. Python 对接
 
 ### 安装 SDK
@@ -378,8 +358,6 @@ for chunk in stream:
         print(text, end="", flush=True)
 ```
 
----
-
 ## 9. Tool Calling（可选）
 
 仅在所选模型和中转渠道支持 Tool Calling 时使用。
@@ -425,8 +403,6 @@ for chunk in stream:
 4. 再次调用 `/v1/chat/completions` 获取最终自然语言回复。
 
 > 不要直接信任模型生成的工具参数。执行数据库、支付、文件和系统命令前必须进行白名单校验和权限检查。
-
----
 
 ## 10. 错误处理
 
@@ -479,8 +455,6 @@ code
 - 对同一个用户操作设置业务请求 ID，避免网络重试导致重复提交。
 - 记录响应头中的请求 ID（如存在），便于向 fuck2api 排查。
 
----
-
 ## 11. 服务端配置建议
 
 ```dotenv
@@ -499,8 +473,6 @@ OAI_TIMEOUT_MS=120000
 5. 记录模型、耗时、状态码、Token 使用量和业务请求 ID。
 6. 日志中的 API Key、用户隐私及完整提示词应脱敏。
 
----
-
 ## 12. 最小联调清单
 
 - [ ] `GET /v1/models` 能正常返回模型列表
@@ -510,8 +482,6 @@ OAI_TIMEOUT_MS=120000
 - [ ] 401、429、超时和上游 5xx 已正确处理
 - [ ] API Key 未暴露到前端、日志和 Git 仓库
 - [ ] 已配置模型 ID、超时、并发与重试上限
-
----
 
 ## 13. 快速排错
 
@@ -556,8 +526,6 @@ https://fxxkapi.top
 ```
 
 具体以抓包得到的最终请求地址为准。
-
----
 
 ## 相关
 

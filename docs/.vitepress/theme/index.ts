@@ -13,6 +13,7 @@ import CardLink from './components/CardLink.vue'
 import Steps from './components/Steps.vue'
 import ApiEndpoint from './components/ApiEndpoint.vue'
 import NavBrandTitle from './components/NavBrandTitle.vue'
+import DocMeta from './components/DocMeta.vue'
 import { setupImagePreview } from './imagePreview'
 
 export default {
@@ -21,6 +22,8 @@ export default {
     return h(DefaultTheme.Layout, null, {
       // Replace plain site title text with official Fuck2API brand styling
       'nav-bar-title-text': () => h(NavBrandTitle),
+      // Doc meta bar (author / date / reading time) — relocates under h1
+      'doc-before': () => h(DocMeta),
     })
   },
   enhanceApp({ app, router }) {
@@ -34,6 +37,7 @@ export default {
     app.component('Steps', Steps)
     app.component('ApiEndpoint', ApiEndpoint)
     app.component('NavBrandTitle', NavBrandTitle)
+    app.component('DocMeta', DocMeta)
 
     // World-class lightbox for all doc images (PhotoSwipe 5)
     if (typeof window !== 'undefined') {

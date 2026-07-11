@@ -499,6 +499,108 @@ body {
   margin-bottom: 1.1rem;
 }
 
+/* ========== Doc meta bar (author / date / reading time) ==========
+ * Sits directly under the page H1 — clean icon + text chips (reference style).
+ */
+
+.f2-doc-meta {
+  display: none;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 2px;
+  margin: 0.2rem 0 1.5rem;
+  padding: 0 0 1rem;
+  font-family: var(--vp-font-family-base);
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--vp-c-text-3);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  /* Soft hairline under author / date / reading time */
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.f2-doc-meta.is-visible {
+  display: flex;
+}
+
+/* Even softer divider in both themes — not a heavy rule */
+html:not(.dark) .f2-doc-meta {
+  border-bottom-color: rgba(27, 31, 36, 0.08);
+}
+
+html.dark .f2-doc-meta {
+  border-bottom-color: rgba(240, 246, 252, 0.08);
+}
+
+.f2-doc-meta__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 28px;
+  padding: 3px 10px 3px 8px;
+  border-radius: 8px;
+  color: var(--vp-c-text-3);
+  transition: color 0.14s ease, background 0.14s ease;
+}
+
+.f2-doc-meta__item:hover {
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg-soft);
+}
+
+.f2-doc-meta__icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.f2-doc-meta__text {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle separator between chips (not a harsh pipe) */
+.f2-doc-meta__sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.28;
+  margin: 0 4px;
+  flex-shrink: 0;
+  color: var(--vp-c-text-3);
+}
+
+/* H1 sits tight above meta; more air under the meta row */
+.vp-doc h1 {
+  margin-bottom: 0.3rem !important;
+}
+
+html.dark .f2-doc-meta,
+html.dark .f2-doc-meta__item {
+  color: #8b949e;
+}
+
+html.dark .f2-doc-meta__item:hover {
+  color: #c9d1d9;
+  background: rgba(110, 118, 129, 0.14);
+}
+
+/* Light: slightly warmer slate for meta */
+html:not(.dark) .f2-doc-meta,
+html:not(.dark) .f2-doc-meta__item {
+  color: #656d76;
+}
+
+html:not(.dark) .f2-doc-meta__item:hover {
+  color: #424a53;
+  background: #f6f8fa;
+}
+
 /* ========== Doc typography ========== */
 
 .vp-doc {
@@ -542,6 +644,22 @@ body {
   margin-top: 2.4rem;
   padding-top: 1.25rem;
   color: var(--vp-c-text-1);
+}
+
+/* First H2 under the title (and optional DocMeta) — no divider line */
+.vp-doc h1 + h2,
+.vp-doc h1 + .f2-doc-meta + h2,
+.vp-doc > h2:first-of-type {
+  border-top: none !important;
+  margin-top: 1.1rem !important;
+  padding-top: 0 !important;
+}
+
+/* Anchor offset matches first-h2 (no extra top padding) */
+.vp-doc h1 + h2 .header-anchor,
+.vp-doc h1 + .f2-doc-meta + h2 .header-anchor,
+.vp-doc > h2:first-of-type .header-anchor {
+  top: 0 !important;
 }
 
 .vp-doc h2 .header-anchor {
@@ -598,6 +716,20 @@ body {
 .vp-doc hr {
   border-color: var(--vp-c-divider);
   margin: 2.25rem 0;
+}
+
+/*
+ * Double lines: Markdown `---` renders as <hr>, while every h2 already has
+ * border-top. Hide HRs that sit right before a heading (or after one).
+ */
+.vp-doc hr:has(+ h1),
+.vp-doc hr:has(+ h2),
+.vp-doc hr:has(+ h3),
+.vp-doc h1 + hr,
+.vp-doc h2 + hr,
+.vp-doc h3 + hr,
+.vp-doc .f2-doc-meta + hr {
+  display: none;
 }
 
 /* ========== Inline code ==========

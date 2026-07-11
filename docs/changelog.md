@@ -21,8 +21,6 @@
 - API 接入（Chat / Responses / Embeddings / Images / Stream）
 - FAQ 与故障排查手册
 
----
-
 ## 如何维护本页
 
 在 `docs/changelog.md` 顶部按如下模板追加：
