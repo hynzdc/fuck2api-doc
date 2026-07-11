@@ -285,6 +285,256 @@ body {
   border-bottom: 1px solid var(--vp-c-divider) !important;
 }
 
+/*
+ * Navbar layout (desktop) — Stripe / Linear / VitePress docs pattern:
+ *
+ *   [Logo | sidebar]   [Nav links …………]   [Search][Theme][GitHub]
+ *
+ * Critical bug: VP sets `.VPNavBarSearch { flex-grow: 1 }`, so the search
+ * wrapper eats all free space and leaves a huge void between the pill and
+ * the theme switch. Kill flex-grow and pack tools flush right.
+ */
+@media (min-width: 768px) {
+  /* Override VP default that stretches search across the bar */
+  .VPNavBarSearch,
+  .VPNavBar .search,
+  .VPNavBar .VPNavBarSearch {
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+    padding-left: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPNavBar .content-body {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0 !important;
+    column-gap: 0 !important;
+  }
+
+  /* Primary nav hugs left of content column */
+  .VPNavBar .menu {
+    order: 1;
+    margin-right: auto !important;
+    margin-left: 0 !important;
+    flex: 0 1 auto;
+  }
+
+  .VPNavBar .translations {
+    order: 2;
+  }
+
+  /*
+   * Right tool cluster — no grow, tight gaps:
+   * Search · Theme · GitHub
+   */
+  .VPNavBar .search,
+  .VPNavBar .VPNavBarSearch {
+    order: 5;
+    display: inline-flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    flex-grow: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+  }
+
+  #local-search,
+  #docsearch {
+    display: contents;
+  }
+
+  .VPNavBar .appearance {
+    order: 6;
+    display: flex !important;
+    align-items: center;
+    flex: 0 0 auto !important;
+    margin: 0 0 0 10px !important;
+  }
+
+  .VPNavBar .social-links {
+    order: 7;
+    display: flex !important;
+    align-items: center;
+    flex: 0 0 auto !important;
+    margin: 0 0 0 6px !important;
+  }
+
+  .VPNavBar .extra {
+    order: 8;
+    flex: 0 0 auto;
+  }
+
+  .VPNavBar .hamburger {
+    order: 9;
+  }
+
+  /* Remove VP pseudo dividers — they fight our tight cluster */
+  .VPNavBar .menu + .translations::before,
+  .VPNavBar .menu + .appearance::before,
+  .VPNavBar .menu + .social-links::before,
+  .VPNavBar .translations + .appearance::before,
+  .VPNavBar .appearance + .social-links::before,
+  .VPNavBar .search + .appearance::before,
+  .VPNavBar .search::after {
+    display: none !important;
+    content: none !important;
+    width: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Subtle divider only between search and theme */
+  .VPNavBar .appearance {
+    position: relative;
+  }
+
+  .VPNavBar .appearance::before {
+    content: '' !important;
+    display: block !important;
+    position: static !important;
+    width: 1px !important;
+    height: 16px !important;
+    margin: 0 10px 0 0 !important;
+    background: var(--vp-c-divider) !important;
+    flex-shrink: 0;
+  }
+
+  /*
+   * Search pill — compact, content-sized (not stretched)
+   *  🔍 搜索  ⌘ K
+   */
+  .VPNavBar .DocSearch-Button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 34px !important;
+    margin: 0 !important;
+    padding: 0 8px 0 12px !important;
+    border-radius: 999px !important;
+    border: 1px solid var(--vp-c-border) !important;
+    background: var(--vp-c-bg-soft) !important;
+    box-shadow: none !important;
+    transition:
+      border-color 0.15s ease,
+      background 0.15s ease,
+      box-shadow 0.15s ease !important;
+  }
+
+  .VPNavBar .DocSearch-Button:hover {
+    border-color: rgba(255, 59, 48, 0.4) !important;
+    background: var(--vp-c-bg) !important;
+    box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.08) !important;
+  }
+
+  .VPNavBar .DocSearch-Button .DocSearch-Button-Container {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+  }
+
+  .VPNavBar .DocSearch-Button .DocSearch-Search-Icon {
+    width: 14px !important;
+    height: 14px !important;
+    margin-right: 6px !important;
+    top: 0 !important;
+    color: var(--vp-c-text-3) !important;
+  }
+
+  .VPNavBar .DocSearch-Button .DocSearch-Button-Placeholder {
+    display: inline-block !important;
+    margin: 0 !important;
+    padding: 0 8px 0 0 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+    color: var(--vp-c-text-2) !important;
+    white-space: nowrap;
+  }
+
+  .VPNavBar .DocSearch-Button:hover .DocSearch-Button-Placeholder {
+    color: var(--vp-c-text-1) !important;
+  }
+
+  .VPNavBar .DocSearch-Button .DocSearch-Button-Keys {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    margin: 0 0 0 2px !important;
+    min-width: 0 !important;
+    flex: 0 0 auto !important;
+  }
+
+  .VPNavBar .DocSearch-Button .DocSearch-Button-Key {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    min-width: 20px !important;
+    width: auto !important;
+    height: 20px !important;
+    padding: 0 5px !important;
+    border: 1px solid var(--vp-c-border) !important;
+    border-radius: 5px !important;
+    background: var(--vp-c-bg) !important;
+    box-shadow: 0 1px 0 rgba(27, 31, 36, 0.04) !important;
+    line-height: 1 !important;
+    font-size: 11px !important;
+    font-weight: 550 !important;
+    font-family: var(--vp-font-family-base) !important;
+    color: var(--vp-c-text-3) !important;
+  }
+
+  .VPNavBar .DocSearch-Button .DocSearch-Button-Key + .DocSearch-Button-Key {
+    border: 1px solid var(--vp-c-border) !important;
+    border-radius: 5px !important;
+    padding: 0 6px !important;
+  }
+
+  .VPNavBar .DocSearch-Button .DocSearch-Button-Key:first-child {
+    font-size: 0 !important;
+    min-width: 22px !important;
+  }
+
+  .VPNavBar .DocSearch-Button .DocSearch-Button-Key:first-child:after {
+    content: '\2318' !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+    color: var(--vp-c-text-3) !important;
+    line-height: 1 !important;
+  }
+
+  html:not(.mac) .VPNavBar .DocSearch-Button .DocSearch-Button-Key:first-child:after {
+    content: 'Ctrl' !important;
+    font-size: 10px !important;
+  }
+
+  html.dark .VPNavBar .DocSearch-Button {
+    background: var(--vp-c-bg-soft) !important;
+    border-color: var(--vp-c-border) !important;
+  }
+
+  html.dark .VPNavBar .DocSearch-Button:hover {
+    border-color: rgba(255, 107, 99, 0.45) !important;
+    background: var(--vp-c-bg-elv) !important;
+  }
+
+  html.dark .VPNavBar .DocSearch-Button .DocSearch-Button-Key {
+    background: var(--vp-c-bg-elv) !important;
+    border-color: var(--vp-c-border) !important;
+    box-shadow: none !important;
+  }
+}
+
 .VPNavBar .logo {
   height: 28px;
   width: 28px;

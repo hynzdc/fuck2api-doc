@@ -49,7 +49,7 @@ export default defineConfig({
       provider: 'local',
       options: {
         translations: {
-          button: { buttonText: '搜索文档', buttonAriaLabel: '搜索文档' },
+          button: { buttonText: '搜索', buttonAriaLabel: '搜索文档' },
           modal: {
             noResultsText: '没有找到相关结果',
             resetButtonTitle: '清除查询',
