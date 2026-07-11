@@ -44,8 +44,6 @@ docs/
 ```md
 # 标题
 
-<Badge text="标签" tone="violet" />
-
 简短导语。
 
 ## 小节
@@ -75,7 +73,7 @@ docs/
 
 | 组件 | 用途 |
 | --- | --- |
-| `<Badge text="..." tone="violet" />` | 行内标签 |
+| `` | 行内标签 |
 | `<ApiEndpoint method="POST" path="/v1/..." />` | 接口条 |
 | `<FeatureGrid ... />` | 特性栅格 |
 | 自定义容器 `::: tip` | 提示 / 警告 |

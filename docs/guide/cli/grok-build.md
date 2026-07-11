@@ -1,7 +1,5 @@
 # Grok Build 配置
 
-<Badge text="CLI 配置" tone="violet" />
-
 本文介绍如何让 **Grok Build**（`grok` CLI / TUI）通过 Fuck2API 中转调用模型。
 
 官方 Base URL：

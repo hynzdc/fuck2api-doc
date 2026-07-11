@@ -1,7 +1,5 @@
 # Gemini 配置
 
-<Badge text="CLI 配置" tone="green" />
-
 ::: tip 提示
 **强烈建议使用 [CC-Switch](/guide/cc-switch) 来进行配置，小白友好！**
 :::

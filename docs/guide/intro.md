@@ -1,7 +1,5 @@
 # 平台简介
 
-<Badge text="入门" tone="violet" /> <Badge text="5 分钟" tone="cyan" />
-
 **fuck2api** 是面向开发者与团队的 **AI API 中转与聚合平台**。  
 用 **一套 OpenAI 兼容接口**，统一接入 GPT、Claude、Gemini 等顶级模型能力，并提供稳定网关、智能路由、透明计费与完善文档。
 

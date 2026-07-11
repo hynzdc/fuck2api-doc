@@ -1,7 +1,5 @@
 # CC-Switch 配置
 
-<Badge text="CLI 配置" tone="cyan" />
-
 ### 什么是 CC-Switch
 
 ![image-20260711145249228](https://pic-es.oss-cn-shanghai.aliyuncs.com/20260711145249399.png)

@@ -1,8 +1,8 @@
 import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
-import { h } from 'vue'
 import './style.css'
 import './fonts.css'
+import Layout from './Layout.vue'
 import HomeHero from './components/HomeHero.vue'
 import FeatureGrid from './components/FeatureGrid.vue'
 import StatBar from './components/StatBar.vue'
@@ -18,14 +18,8 @@ import { setupImagePreview } from './imagePreview'
 
 export default {
   extends: DefaultTheme,
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // Replace plain site title text with official Fuck2API brand styling
-      'nav-bar-title-text': () => h(NavBrandTitle),
-      // Doc meta bar (author / date / reading time) — relocates under h1
-      'doc-before': () => h(DocMeta),
-    })
-  },
+  // Custom layout: brand title + doc meta + circular theme transition
+  Layout,
   enhanceApp({ app, router }) {
     app.component('HomeHero', HomeHero)
     app.component('FeatureGrid', FeatureGrid)

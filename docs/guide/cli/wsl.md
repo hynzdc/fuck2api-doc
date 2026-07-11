@@ -1,7 +1,5 @@
 # WSL 配置
 
-<Badge text="Windows" tone="amber" />
-
 Windows 系统下配置 WSL 运行 AI 终端（Claude Code / Codex / Gemini 等）。
 
 ## 什么是 WSL？为什么要配置 WSL？
