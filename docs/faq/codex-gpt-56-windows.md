@@ -83,3 +83,4 @@ Codex App 前端会读取 Statsig dynamic config `107580212`：
 ## 相关
 
 - [Codex 配置](/guide/cli/codex)
+- [Mac / Win 通用：CC Switch 官方登录预热](/faq/codex-gpt-56-mac-win)

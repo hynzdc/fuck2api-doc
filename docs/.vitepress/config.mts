@@ -59,7 +59,11 @@ const guideSidebar = [
     collapsed: false,
     items: [
       {
-        // Explicit <br> so long FAQ titles always wrap to a second line in the narrow sidebar
+        // Explicit <br> so long FAQ titles always wrap in the narrow sidebar
+        text: '<img class="f2-sb-icon" src="/icons/openai.png" alt="" /><span class="f2-sb-label">Codex App<br>不显示 GPT-5.6（Mac / Win）</span>',
+        link: '/faq/codex-gpt-56-mac-win',
+      },
+      {
         text: '<img class="f2-sb-icon" src="/icons/openai.png" alt="" /><span class="f2-sb-label">Codex App<br>不显示 GPT-5.6（Windows）</span>',
         link: '/faq/codex-gpt-56-windows',
       },
@@ -147,6 +151,7 @@ export default defineConfig({
       {
         text: '更多',
         items: [
+          { text: 'Codex App 不显示 GPT-5.6（Mac / Win）', link: '/faq/codex-gpt-56-mac-win' },
           { text: 'Codex App 不显示 GPT-5.6（Windows）', link: '/faq/codex-gpt-56-windows' },
           { text: '贡献指南', link: '/contributing' },
         ],
