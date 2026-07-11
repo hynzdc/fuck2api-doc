@@ -81,7 +81,6 @@ export default defineConfig({
         text: '更多',
         items: [
           { text: '常见问题', link: '/faq/' },
-          { text: '更新日志', link: '/changelog' },
           { text: '贡献指南', link: '/contributing' },
         ],
       },
@@ -89,7 +88,8 @@ export default defineConfig({
     sidebar: {
       '/guide/': [
         {
-          text: '🚀 快速开始',
+          // No emoji — Stripe/Linear style: clean section labels
+          text: '快速开始',
           collapsed: false,
           items: [
             { text: '平台简介', link: '/guide/intro' },
@@ -99,7 +99,7 @@ export default defineConfig({
           ],
         },
         {
-          text: '⌨️ CLI 配置',
+          text: 'CLI 配置',
           collapsed: false,
           items: [
             { text: 'CC-Switch 配置', link: '/guide/cc-switch' },
@@ -113,7 +113,7 @@ export default defineConfig({
       ],
       '/api/': [
         {
-          text: '📡 API 接入',
+          text: 'API 接入',
           collapsed: false,
           items: [
             { text: 'OAI 对话接口对接', link: '/api/overview' },
@@ -123,7 +123,7 @@ export default defineConfig({
       ],
       '/faq/': [
         {
-          text: '❓ 帮助中心',
+          text: '帮助中心',
           items: [
             { text: '常见问题', link: '/faq/' },
             { text: '故障排查', link: '/faq/troubleshooting' },
@@ -132,14 +132,14 @@ export default defineConfig({
       ],
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/fuck2api/docs' },
+      { icon: 'github', link: 'https://github.com/hynzdc/fuck2api-doc' },
     ],
     footer: {
       message: 'Released under the MIT License · Built with VitePress',
       copyright: 'Copyright © 2024-present Fuck2API',
     },
     editLink: {
-      pattern: 'https://github.com/fuck2api/docs/edit/main/docs/:path',
+      pattern: 'https://github.com/hynzdc/fuck2api-doc/edit/main/docs/:path',
       text: '在 GitHub 上编辑此页',
     },
     lastUpdated: {
@@ -162,9 +162,11 @@ export default defineConfig({
 
   markdown: {
     theme: {
+      // Dual Shiki themes — must pair with CSS that does NOT force color on spans
       light: 'github-light',
-      dark: 'one-dark-pro',
+      dark: 'github-dark',
     },
+    // Slightly tighter code for docs density
     lineNumbers: true,
     image: {
       lazyLoading: true,
