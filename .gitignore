@@ -1,0 +1,11 @@
+node_modules
+docs/.vitepress/dist
+docs/.vitepress/cache
+.DS_Store
+*.log
+.idea
+*.iml
+dist
+.vite
+.env
+.env.*

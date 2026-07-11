@@ -1,0 +1,36 @@
+{
+  "name": "fuck2api-docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "fuck2api 官方使用文档 — 高端、易维护的 API 中转教程站",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "keywords": [
+    "fuck2api",
+    "docs",
+    "vitepress",
+    "api"
+  ],
+  "author": "fuck2api",
+  "license": "MIT",
+  "packageManager": "pnpm@10.28.0",
+  "devDependencies": {
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.39"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "dependencies": {
+    "photoswipe": "^5.4.4"
+  }
+}
