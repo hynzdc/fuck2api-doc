@@ -800,6 +800,7 @@ html:not(.dark) .f2-doc-meta__item:hover {
   /* NO color !important here */
 }
 
+/* Language label (BASH / JSON …) — visible at rest, fades when copy appears */
 .vp-doc [class*='language-'] > span.lang {
   color: var(--vp-code-lang-color) !important;
   font-size: 11px !important;
@@ -808,7 +809,21 @@ html:not(.dark) .f2-doc-meta__item:hover {
   text-transform: uppercase;
   right: 12px !important;
   top: 10px !important;
-  opacity: 0.85;
+  opacity: 0.72;
+  transition: opacity 0.2s ease !important;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.vp-doc [class*='language-']:hover > button.copy + span.lang,
+.vp-doc [class*='language-'] > button.copy:focus + span.lang,
+.vp-doc [class*='language-'] > button.copy.copied + span.lang {
+  opacity: 0 !important;
+}
+
+/* code-group already labels tabs (Windows/macOS) — hide redundant lang tag */
+.vp-code-group [class*='language-'] > span.lang {
+  display: none !important;
 }
 
 /* Ensure Shiki dual-theme tokens always win */
@@ -862,19 +877,44 @@ html.dark .vp-code span {
   width: calc(100% + 28px + 24px) !important;
 }
 
-/* Copy button — always readable on light & dark */
+/*
+ * Copy button — VitePress default: hidden until hover.
+ * Do NOT force opacity on light theme (previous bug made it always-on).
+ */
 .vp-doc [class*='language-'] > button.copy {
   border-radius: 6px !important;
   border: 1px solid var(--vp-code-copy-code-border-color) !important;
   background-color: var(--vp-code-copy-code-bg) !important;
+  background-size: 16px !important;
   width: 32px !important;
   height: 32px !important;
+  top: 10px !important;
+  right: 10px !important;
+  opacity: 0 !important;
+  z-index: 3;
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease !important;
+}
+
+.vp-doc [class*='language-']:hover > button.copy,
+.vp-doc [class*='language-'] > button.copy:focus,
+.vp-doc [class*='language-'] > button.copy.copied {
+  opacity: 1 !important;
 }
 
 .vp-doc [class*='language-'] > button.copy:hover,
 .vp-doc [class*='language-'] > button.copy:focus {
   border-color: var(--vp-code-copy-code-hover-border-color) !important;
   background-color: var(--vp-code-copy-code-hover-bg) !important;
+}
+
+/* "已复制" chip height matches our 32px button */
+.vp-doc [class*='language-'] > button.copy.copied::before,
+.vp-doc [class*='language-'] > button.copy:hover.copied::before {
+  height: 32px !important;
+  border-radius: 6px 0 0 6px !important;
 }
 
 /* Bare <pre> (no language fence) */
@@ -1511,16 +1551,6 @@ html.dark .vp-code span {
 .vp-doc input[type='checkbox'] {
   accent-color: var(--f2-red);
   margin-right: 0.4em;
-}
-
-/* ========== Light-theme polish ========== */
-
-html:not(.dark) .vp-doc [class*='language-'] > button.copy {
-  opacity: 0.75;
-}
-
-html:not(.dark) .vp-doc [class*='language-']:hover > button.copy {
-  opacity: 1;
 }
 
 /* ========== Dark-theme polish ========== */
