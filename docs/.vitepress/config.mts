@@ -88,45 +88,87 @@ export default defineConfig({
     sidebar: {
       '/guide/': [
         {
-          // No emoji — Stripe/Linear style: clean section labels
-          text: '快速开始',
+          text: '<span class="f2-sb-ico f2-sb-ico--rocket" aria-hidden="true"></span>快速开始',
           collapsed: false,
           items: [
-            { text: '平台简介', link: '/guide/intro' },
-            { text: '充值', link: '/guide/recharge' },
-            { text: 'ApiKey 管理', link: '/guide/apikey' },
-            { text: '通用步骤', link: '/guide/common-steps' },
+            {
+              text: '<span class="f2-sb-ico f2-sb-ico--intro" aria-hidden="true"></span>平台简介',
+              link: '/guide/intro',
+            },
+            {
+              text: '<span class="f2-sb-ico f2-sb-ico--recharge" aria-hidden="true"></span>充值',
+              link: '/guide/recharge',
+            },
+            {
+              text: '<span class="f2-sb-ico f2-sb-ico--apikey" aria-hidden="true"></span>ApiKey 管理',
+              link: '/guide/apikey',
+            },
+            {
+              text: '<span class="f2-sb-ico f2-sb-ico--steps" aria-hidden="true"></span>通用步骤',
+              link: '/guide/common-steps',
+            },
           ],
         },
         {
-          text: 'CLI 配置',
+          text: '<span class="f2-sb-ico f2-sb-ico--terminal" aria-hidden="true"></span>CLI 配置',
           collapsed: false,
           items: [
-            { text: 'CC-Switch 配置', link: '/guide/cc-switch' },
-            { text: 'Claude Code 配置', link: '/guide/cli/claude-code' },
-            { text: 'Codex 配置', link: '/guide/cli/codex' },
-            { text: 'Grok Build 配置', link: '/guide/cli/grok-build' },
-            { text: 'Gemini 配置', link: '/guide/cli/gemini' },
-            { text: 'WSL 配置', link: '/guide/cli/wsl' },
+            // Brand marks for product CLIs
+            {
+              text: '<img class="f2-sb-icon" src="/icons/cc-switch.png" alt="" />CC-Switch 配置',
+              link: '/guide/cc-switch',
+            },
+            {
+              text: '<img class="f2-sb-icon f2-sb-icon--claude" src="/icons/claude.svg" alt="" />Claude Code 配置',
+              link: '/guide/cli/claude-code',
+            },
+            {
+              text: '<img class="f2-sb-icon" src="/icons/openai.png" alt="" />Codex 配置',
+              link: '/guide/cli/codex',
+            },
+            {
+              text: '<img class="f2-sb-icon" src="/icons/grok.png" alt="" />Grok Build 配置',
+              link: '/guide/cli/grok-build',
+            },
+            {
+              text: '<img class="f2-sb-icon" src="/icons/gemini.svg" alt="" />Gemini 配置',
+              link: '/guide/cli/gemini',
+            },
+            {
+              text: '<img class="f2-sb-icon" src="/icons/microsoft.png" alt="" />WSL 配置',
+              link: '/guide/cli/wsl',
+            },
           ],
         },
       ],
       '/api/': [
         {
-          text: 'API 接入',
+          text: '<span class="f2-sb-ico f2-sb-ico--api" aria-hidden="true"></span>API 接入',
           collapsed: false,
           items: [
-            { text: 'OAI 对话接口对接', link: '/api/overview' },
-            { text: '生图接口文档对接', link: '/api/images' },
+            {
+              text: '<span class="f2-sb-ico f2-sb-ico--chat" aria-hidden="true"></span>OAI 对话接口对接',
+              link: '/api/overview',
+            },
+            {
+              text: '<span class="f2-sb-ico f2-sb-ico--image" aria-hidden="true"></span>生图接口文档对接',
+              link: '/api/images',
+            },
           ],
         },
       ],
       '/faq/': [
         {
-          text: '帮助中心',
+          text: '<span class="f2-sb-ico f2-sb-ico--help" aria-hidden="true"></span>帮助中心',
           items: [
-            { text: '常见问题', link: '/faq/' },
-            { text: '故障排查', link: '/faq/troubleshooting' },
+            {
+              text: '<span class="f2-sb-ico f2-sb-ico--faq" aria-hidden="true"></span>常见问题',
+              link: '/faq/',
+            },
+            {
+              text: '<span class="f2-sb-ico f2-sb-ico--wrench" aria-hidden="true"></span>故障排查',
+              link: '/faq/troubleshooting',
+            },
           ],
         },
       ],

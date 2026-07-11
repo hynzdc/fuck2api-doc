@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+  <!-- Claude asterisk / starburst — brand warm amber (matches claude.ai) -->
+  <defs>
+    <linearGradient id="claudeWarm" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F0B429"/>
+      <stop offset="45%" stop-color="#E8944A"/>
+      <stop offset="100%" stop-color="#D97757"/>
+    </linearGradient>
+  </defs>
+  <!-- 8-point soft asterisk -->
+  <g fill="url(#claudeWarm)">
+    <ellipse cx="12" cy="12" rx="2.15" ry="9.2"/>
+    <ellipse cx="12" cy="12" rx="2.15" ry="9.2" transform="rotate(45 12 12)"/>
+    <ellipse cx="12" cy="12" rx="2.15" ry="9.2" transform="rotate(90 12 12)"/>
+    <ellipse cx="12" cy="12" rx="2.15" ry="9.2" transform="rotate(135 12 12)"/>
+  </g>
+</svg>

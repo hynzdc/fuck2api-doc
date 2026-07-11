@@ -396,6 +396,123 @@ body {
 }
 
 /*
+ * Sidebar icons
+ * - .f2-sb-ico  : professional monoline system icons (mask + currentColor)
+ * - .f2-sb-icon : full-color brand marks (CLI products)
+ */
+.f2-sb-ico {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 9px;
+  flex-shrink: 0;
+  background-color: currentColor;
+  opacity: 0.72;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  transition: opacity 0.12s ease;
+}
+
+.VPSidebarItem.is-active .f2-sb-ico,
+.VPSidebarItem .link:hover .f2-sb-ico {
+  opacity: 0.95;
+}
+
+.VPSidebarItem.level-0 > .item .f2-sb-ico {
+  opacity: 0.78;
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+}
+
+.f2-sb-ico--intro {
+  -webkit-mask-image: url('/icons/intro.svg');
+  mask-image: url('/icons/intro.svg');
+}
+.f2-sb-ico--recharge {
+  -webkit-mask-image: url('/icons/recharge.svg');
+  mask-image: url('/icons/recharge.svg');
+}
+.f2-sb-ico--apikey {
+  -webkit-mask-image: url('/icons/apikey.svg');
+  mask-image: url('/icons/apikey.svg');
+}
+.f2-sb-ico--steps {
+  -webkit-mask-image: url('/icons/steps.svg');
+  mask-image: url('/icons/steps.svg');
+}
+.f2-sb-ico--rocket {
+  -webkit-mask-image: url('/icons/rocket.svg');
+  mask-image: url('/icons/rocket.svg');
+}
+.f2-sb-ico--terminal {
+  -webkit-mask-image: url('/icons/terminal.svg');
+  mask-image: url('/icons/terminal.svg');
+}
+.f2-sb-ico--api {
+  -webkit-mask-image: url('/icons/api.svg');
+  mask-image: url('/icons/api.svg');
+}
+.f2-sb-ico--chat {
+  -webkit-mask-image: url('/icons/chat.svg');
+  mask-image: url('/icons/chat.svg');
+}
+.f2-sb-ico--image {
+  -webkit-mask-image: url('/icons/image.svg');
+  mask-image: url('/icons/image.svg');
+}
+.f2-sb-ico--help {
+  -webkit-mask-image: url('/icons/help.svg');
+  mask-image: url('/icons/help.svg');
+}
+.f2-sb-ico--faq {
+  -webkit-mask-image: url('/icons/faq.svg');
+  mask-image: url('/icons/faq.svg');
+}
+.f2-sb-ico--wrench {
+  -webkit-mask-image: url('/icons/wrench.svg');
+  mask-image: url('/icons/wrench.svg');
+}
+
+/* Full-color brand marks (CLI) */
+.f2-sb-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 9px;
+  vertical-align: -3px;
+  object-fit: contain;
+  border-radius: 3.5px;
+  flex-shrink: 0;
+}
+
+/* When text is HTML with icon, keep label + icon on one line */
+.VPSidebarItem .text {
+  display: inline-flex;
+  align-items: center;
+}
+
+.VPSidebarItem.level-0 > .item .text {
+  display: inline-flex;
+}
+
+/* Monochrome brand marks stay visible on dark background */
+html.dark .f2-sb-icon[src*='openai'],
+html.dark .f2-sb-icon[src*='grok'] {
+  filter: invert(1) brightness(1.15);
+}
+
+/* Claude starburst already has warm amber gradient — never invert */
+html.dark .f2-sb-icon--claude,
+html.dark .f2-sb-icon[src*='claude'] {
+  filter: none;
+}
+
+/*
  * Group titles (快速开始 / CLI 配置)
  * Stripe / Linear / Vercel: readable ~14px semi-bold, sentence case.
  * NEVER 11px uppercase micro-labels — that kills proportion next to 14px links.
@@ -686,18 +803,10 @@ html:not(.dark) .f2-doc-meta__item:hover {
   padding-top: 0 !important;
 }
 
-/* Anchor offset matches first-h2 (no extra top padding) */
-.vp-doc h1 + h2 .header-anchor,
-.vp-doc h1 + .f2-doc-meta + h2 .header-anchor,
-.vp-doc > h2:first-of-type .header-anchor {
-  top: 0 !important;
-}
-
-.vp-doc h2 .header-anchor {
-  color: var(--vp-c-brand-1);
-}
-
-/* Subtle red accent bar on h2 — brand mark without rainbow */
+/*
+ * H2 brand accent bar (inline red tick before title) — restored by request.
+ * Anchor "#" stays outside to the left on hover only, so it doesn't glue to the bar.
+ */
 .vp-doc h2::before {
   content: '';
   display: inline-block;
@@ -707,6 +816,31 @@ html:not(.dark) .f2-doc-meta__item:hover {
   border-radius: 2px;
   background: var(--f2-red);
   vertical-align: -0.05em;
+}
+
+.vp-doc h2 .header-anchor {
+  /* Align with h2 padding-top (divider section headings) */
+  top: 1.25rem;
+  /* Sit further left so "# | 标题" doesn't look fused */
+  margin-left: -1.15em !important;
+  color: var(--vp-c-brand-1);
+  opacity: 0;
+  font-weight: 600;
+}
+
+/* First H2 has no top padding — anchor flush with title line */
+.vp-doc h1 + h2 .header-anchor,
+.vp-doc h1 + .f2-doc-meta + h2 .header-anchor,
+.vp-doc > h2:first-of-type .header-anchor {
+  top: 0 !important;
+}
+
+.vp-doc h1:hover .header-anchor,
+.vp-doc h2:hover .header-anchor,
+.vp-doc h3:hover .header-anchor,
+.vp-doc h4:hover .header-anchor,
+.vp-doc .header-anchor:focus {
+  opacity: 1;
 }
 
 .vp-doc h3 {
