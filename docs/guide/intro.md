@@ -61,11 +61,6 @@
 5. Windows 用户可看 [WSL 配置](/guide/cli/wsl)
 6. 深入对接看 [API 接入](/api/overview)
 
-::: tip 维护提示
-本站所有内容都在仓库 `docs/` 目录下的 Markdown 文件中。  
-改文档 = 改 `.md` 文件，本地 `pnpm dev` 即时预览，`pnpm build` 产出静态站。
-:::
-
 ## 下一步
 
 <div class="f2-card-links">

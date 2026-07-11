@@ -1,5 +1,72 @@
 import { defineConfig } from 'vitepress'
 
+/** Shared guide sidebar — includes FAQ group so it stays visible in left nav */
+const guideSidebar = [
+  {
+    text: '<span class="f2-sb-ico f2-sb-ico--rocket" aria-hidden="true"></span>快速开始',
+    collapsed: false,
+    items: [
+      {
+        text: '<span class="f2-sb-ico f2-sb-ico--intro" aria-hidden="true"></span>平台简介',
+        link: '/guide/intro',
+      },
+      {
+        text: '<span class="f2-sb-ico f2-sb-ico--recharge" aria-hidden="true"></span>充值',
+        link: '/guide/recharge',
+      },
+      {
+        text: '<span class="f2-sb-ico f2-sb-ico--apikey" aria-hidden="true"></span>ApiKey 管理',
+        link: '/guide/apikey',
+      },
+      {
+        text: '<span class="f2-sb-ico f2-sb-ico--steps" aria-hidden="true"></span>通用步骤',
+        link: '/guide/common-steps',
+      },
+    ],
+  },
+  {
+    text: '<span class="f2-sb-ico f2-sb-ico--terminal" aria-hidden="true"></span>CLI 配置',
+    collapsed: false,
+    items: [
+      {
+        text: '<img class="f2-sb-icon" src="/icons/cc-switch.png" alt="" />CC-Switch 配置',
+        link: '/guide/cc-switch',
+      },
+      {
+        text: '<img class="f2-sb-icon f2-sb-icon--claude" src="/icons/claude.svg" alt="" />Claude Code 配置',
+        link: '/guide/cli/claude-code',
+      },
+      {
+        text: '<img class="f2-sb-icon" src="/icons/openai.png" alt="" />Codex 配置',
+        link: '/guide/cli/codex',
+      },
+      {
+        text: '<img class="f2-sb-icon" src="/icons/grok.png" alt="" />Grok Build 配置',
+        link: '/guide/cli/grok-build',
+      },
+      {
+        text: '<img class="f2-sb-icon" src="/icons/gemini.svg" alt="" />Gemini 配置',
+        link: '/guide/cli/gemini',
+      },
+      {
+        text: '<img class="f2-sb-icon" src="/icons/microsoft.png" alt="" />WSL 配置',
+        link: '/guide/cli/wsl',
+      },
+    ],
+  },
+  {
+    text: '<span class="f2-sb-ico f2-sb-ico--faq" aria-hidden="true"></span>常见问题',
+    collapsed: false,
+    items: [
+      {
+        // Explicit <br> so long FAQ titles always wrap to a second line in the narrow sidebar
+        text: '<img class="f2-sb-icon" src="/icons/openai.png" alt="" /><span class="f2-sb-label">Codex App<br>不显示 GPT-5.6（Windows）</span>',
+        link: '/faq/codex-gpt-56-windows',
+      },
+    ],
+  },
+]
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Fuck2API',
@@ -80,67 +147,14 @@ export default defineConfig({
       {
         text: '更多',
         items: [
-          { text: '常见问题', link: '/faq/' },
+          { text: 'Codex App 不显示 GPT-5.6（Windows）', link: '/faq/codex-gpt-56-windows' },
           { text: '贡献指南', link: '/contributing' },
         ],
       },
     ],
     sidebar: {
-      '/guide/': [
-        {
-          text: '<span class="f2-sb-ico f2-sb-ico--rocket" aria-hidden="true"></span>快速开始',
-          collapsed: false,
-          items: [
-            {
-              text: '<span class="f2-sb-ico f2-sb-ico--intro" aria-hidden="true"></span>平台简介',
-              link: '/guide/intro',
-            },
-            {
-              text: '<span class="f2-sb-ico f2-sb-ico--recharge" aria-hidden="true"></span>充值',
-              link: '/guide/recharge',
-            },
-            {
-              text: '<span class="f2-sb-ico f2-sb-ico--apikey" aria-hidden="true"></span>ApiKey 管理',
-              link: '/guide/apikey',
-            },
-            {
-              text: '<span class="f2-sb-ico f2-sb-ico--steps" aria-hidden="true"></span>通用步骤',
-              link: '/guide/common-steps',
-            },
-          ],
-        },
-        {
-          text: '<span class="f2-sb-ico f2-sb-ico--terminal" aria-hidden="true"></span>CLI 配置',
-          collapsed: false,
-          items: [
-            // Brand marks for product CLIs
-            {
-              text: '<img class="f2-sb-icon" src="/icons/cc-switch.png" alt="" />CC-Switch 配置',
-              link: '/guide/cc-switch',
-            },
-            {
-              text: '<img class="f2-sb-icon f2-sb-icon--claude" src="/icons/claude.svg" alt="" />Claude Code 配置',
-              link: '/guide/cli/claude-code',
-            },
-            {
-              text: '<img class="f2-sb-icon" src="/icons/openai.png" alt="" />Codex 配置',
-              link: '/guide/cli/codex',
-            },
-            {
-              text: '<img class="f2-sb-icon" src="/icons/grok.png" alt="" />Grok Build 配置',
-              link: '/guide/cli/grok-build',
-            },
-            {
-              text: '<img class="f2-sb-icon" src="/icons/gemini.svg" alt="" />Gemini 配置',
-              link: '/guide/cli/gemini',
-            },
-            {
-              text: '<img class="f2-sb-icon" src="/icons/microsoft.png" alt="" />WSL 配置',
-              link: '/guide/cli/wsl',
-            },
-          ],
-        },
-      ],
+      '/guide/': guideSidebar,
+      '/faq/': guideSidebar,
       '/api/': [
         {
           text: '<span class="f2-sb-ico f2-sb-ico--api" aria-hidden="true"></span>API 接入',
@@ -153,21 +167,6 @@ export default defineConfig({
             {
               text: '<span class="f2-sb-ico f2-sb-ico--image" aria-hidden="true"></span>生图接口文档对接',
               link: '/api/images',
-            },
-          ],
-        },
-      ],
-      '/faq/': [
-        {
-          text: '<span class="f2-sb-ico f2-sb-ico--help" aria-hidden="true"></span>帮助中心',
-          items: [
-            {
-              text: '<span class="f2-sb-ico f2-sb-ico--faq" aria-hidden="true"></span>常见问题',
-              link: '/faq/',
-            },
-            {
-              text: '<span class="f2-sb-ico f2-sb-ico--wrench" aria-hidden="true"></span>故障排查',
-              link: '/faq/troubleshooting',
             },
           ],
         },

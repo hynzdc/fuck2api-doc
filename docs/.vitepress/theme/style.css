@@ -591,6 +591,19 @@ body {
   border-right: 1px solid var(--vp-c-divider);
 }
 
+/* Slightly wider sidebar so Chinese multi-word titles wrap cleanly (2 lines, not 3) */
+:root {
+  --vp-sidebar-width: 288px;
+}
+
+/* Sidebar nav groups inherit shrink so deep items can wrap */
+.VPSidebar .nav,
+.VPSidebar .group,
+.VPSidebarItem .items {
+  min-width: 0;
+  max-width: 100%;
+}
+
 /*
  * CRITICAL spacing: logo / top nav ↔ first sidebar item.
  * VitePress desktop: padding-top = --vp-nav-height, then a sticky .curtain
@@ -632,7 +645,7 @@ body {
 /* Section titles need room; first link after title not cramped */
 .VPSidebarItem.level-0 > .item {
   margin-bottom: 6px;
-  align-items: center;
+  align-items: flex-start;
   min-height: 36px;
 }
 
@@ -740,14 +753,24 @@ body {
   flex-shrink: 0;
 }
 
-/* When text is HTML with icon, keep label + icon on one line */
-.VPSidebarItem .text {
-  display: inline-flex;
-  align-items: center;
+/*
+ * Sidebar long titles: WRAP instead of being clipped.
+ *
+ * VitePress chain is flex all the way:
+ *   .item (flex) > .link (flex, flex-grow:1) > .text
+ * Default min-width:auto makes each flex child as wide as unwrapped text,
+ * then .VPSidebar { overflow-x:hidden } crops the overflow — looks truncated.
+ * Fix: min-width:0 on the whole chain + flex row for icon + label.
+ */
+.VPSidebarItem {
+  min-width: 0;
+  max-width: 100%;
 }
 
-.VPSidebarItem.level-0 > .item .text {
-  display: inline-flex;
+.VPSidebarItem > .item {
+  min-width: 0 !important;
+  max-width: 100%;
+  width: 100%;
 }
 
 /* Monochrome brand marks stay visible on dark background */
@@ -768,6 +791,9 @@ html.dark .f2-sb-icon[src*='claude'] {
  * NEVER 11px uppercase micro-labels — that kills proportion next to 14px links.
  */
 .VPSidebarItem.level-0 > .item .text {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
   font-weight: 650 !important;
   font-size: 14px !important;
   letter-spacing: -0.01em !important;
@@ -775,14 +801,17 @@ html.dark .f2-sb-icon[src*='claude'] {
   line-height: 1.4 !important;
   padding: 8px 4px 8px 10px !important;
   color: var(--vp-c-text-1) !important;
+  white-space: normal !important;
 }
 
-/* Caret aligns with larger section titles */
+/* Caret aligns with first line of section titles */
 .VPSidebarItem.level-0 > .item .caret {
   width: 28px !important;
   height: 28px !important;
   margin-right: 2px !important;
+  margin-top: 4px !important;
   color: var(--vp-c-text-3) !important;
+  align-self: flex-start !important;
 }
 
 .VPSidebarItem.level-0 > .item:hover .caret {
@@ -803,18 +832,63 @@ html.dark .f2-sb-icon[src*='claude'] {
   content: none !important;
 }
 
-/* Links as padded pills — text never sits on the edge */
+/* Links as padded pills — shrink + wrap so long titles show fully */
 .VPSidebarItem .link {
   position: relative;
+  display: block !important; /* block parent: avoids min-content width clipping */
   border-radius: 8px;
-  padding: 0 12px !important;
+  padding: 8px 12px !important;
   margin: 1px 0;
+  height: auto !important;
+  min-height: 34px;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  flex: 1 1 0% !important; /* 0% basis = may shrink below content width */
+  width: auto !important;
+  box-sizing: border-box;
   transition: background 0.12s ease, color 0.12s ease;
 }
 
-.VPSidebarItem .link .text {
-  padding: 7px 0 !important;
-  line-height: 1.45 !important;
+/*
+ * Single source of truth for sidebar item labels:
+ * flex row = icon left, multi-line title right (may contain <br>).
+ */
+.VPSidebarItem .link .text,
+.VPSidebarItem > .item > .text {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  box-sizing: border-box;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+  line-height: 1.4 !important;
+  height: auto !important;
+  padding: 0 !important;
+  gap: 0;
+}
+
+.VPSidebarItem .text .f2-sb-ico,
+.VPSidebarItem .text .f2-sb-icon {
+  display: inline-block !important;
+  flex: 0 0 auto !important;
+  margin-top: 2px;
+}
+
+/* Multi-line label next to icon (optional .f2-sb-label + <br>) */
+.VPSidebarItem .text .f2-sb-label {
+  display: block !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  line-height: 1.35 !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
 }
 
 .VPSidebarItem.is-link > .item > .link:hover {
@@ -2138,25 +2212,39 @@ html.dark .vp-doc a:hover {
     padding-top: 12px !important;
   }
 
-  /* Larger tap targets for links */
+  /* Larger tap targets for links; still wrap long titles */
   .VPSidebarItem .link {
-    padding: 0 12px !important;
+    padding: 10px 12px !important;
     border-radius: 10px;
     min-height: 42px;
+    height: auto !important;
+    display: block !important;
   }
 
   .VPSidebarItem .link .text {
-    padding: 10px 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    padding: 0 !important;
     font-size: 15px !important;
+    white-space: normal !important;
+    line-height: 1.4 !important;
+  }
+
+  .VPSidebarItem .text .f2-sb-label {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
   }
 
   .VPSidebarItem.level-0 > .item {
     min-height: 40px;
+    align-items: flex-start;
   }
 
   .VPSidebarItem.level-0 > .item .text {
     font-size: 14.5px !important;
     padding: 10px 4px 10px 10px !important;
+    white-space: normal !important;
   }
 
   .VPSidebarItem.level-0 > .item .caret {
