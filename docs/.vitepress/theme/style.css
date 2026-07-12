@@ -774,8 +774,10 @@ body {
 }
 
 /* Monochrome brand marks stay visible on dark background */
+/* Monochrome brand marks: flip to light on dark bg */
 html.dark .f2-sb-icon[src*='openai'],
-html.dark .f2-sb-icon[src*='grok'] {
+html.dark .f2-sb-icon[src*='grok'],
+html.dark .f2-sb-icon[src*='microsoft'] {
   filter: invert(1) brightness(1.15);
 }
 

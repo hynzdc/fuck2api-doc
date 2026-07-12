@@ -7,7 +7,7 @@ const guideSidebar = [
     collapsed: false,
     items: [
       {
-        text: '<span class="f2-sb-ico f2-sb-ico--intro" aria-hidden="true"></span>平台简介',
+        text: '<span class="f2-sb-ico f2-sb-ico--intro" aria-hidden="true"></span>Fuck2API简介',
         link: '/guide/intro',
       },
       {
@@ -151,8 +151,6 @@ export default defineConfig({
       {
         text: '更多',
         items: [
-          { text: 'Codex App 不显示 GPT-5.6（Mac / Win）', link: '/faq/codex-gpt-56-mac-win' },
-          { text: 'Codex App 不显示 GPT-5.6（Windows）', link: '/faq/codex-gpt-56-windows' },
           { text: '贡献指南', link: '/contributing' },
         ],
       },

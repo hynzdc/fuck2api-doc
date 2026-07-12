@@ -1,7 +1,6 @@
 # fuck2api Docs
 
-> 高端、易维护的 **fuck2api** 官方使用教程站  
-> 对标 [Right Code Docs](https://docs.right.codes/docs/)，视觉与信息架构全面升级。
+> 高端、易维护的 **fuck2api** 官方使用教程站。
 
 ![Node](https://img.shields.io/badge/node-%3E%3D18-7c5cff)
 ![VitePress](https://img.shields.io/badge/vitepress-1.x-22d3ee)

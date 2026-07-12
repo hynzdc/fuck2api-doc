@@ -6,7 +6,6 @@
 
 - ✅ 一键切换 API 配置 - 在多个 API 提供商之间快速切换
 - ✅ 可视化配置管理 - 通过图形界面轻松管理所有配置
-- ✅ 内置 Right Code 模板 - 预设了 Right Code的配置模板
 - ✅ MCP 服务器管理 - 管理 Model Context Protocol 服务器
 - ✅ 系统托盘快捷操作 - 通过托盘菜单快速切换
 - ✅ 本地代理 - 支持热切换CC、CX、Gemini的供应商
