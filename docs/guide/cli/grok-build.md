@@ -90,18 +90,18 @@ xdg-open "$HOME/.grok" 2>/dev/null || ls -la "$HOME/.grok"
 ```toml
 [models]
 # 启动默认使用的模型（与下面 [model.xxx] 名称对应）
-default = "fuck2api-gpt"
+default = "fuck2api-grok"
 
 # 方式 A：整站模型列表也走 Fuck2API（可选，但很方便）
 [endpoints]
 models_base_url = "https://fxxkapi.top/v1"
 
 # 方式 B：显式声明一个/多个自定义模型（推荐，最稳）
-[model.fuck2api-gpt]
-model = "gpt-4o"                          # 发给上游的真实模型名，按控制台可用模型改
+[model.fuck2api-grok]
+model = "grok-4.5"                        # 发给上游的真实模型名，按控制台可用 Grok 模型改
 base_url = "https://fxxkapi.top/v1"       # Fuck2API OpenAI 兼容地址
-name = "Fuck2API · GPT"
-description = "经 Fuck2API 中转的 GPT 模型"
+name = "Fuck2API · Grok"
+description = "经 Fuck2API 中转的 Grok 模型"
 env_key = "F2_API_KEY"                    # 从环境变量读 Key（更安全）
 api_backend = "chat_completions"          # 默认就是 chat_completions，可省略
 context_window = 128000
@@ -126,17 +126,17 @@ context_window = 1000000
 
 ::: warning 重要
 - `base_url` 必须是 **`https://fxxkapi.top/v1`**（带 `/v1`）
-- `model` 字段填控制台真实存在的模型 ID
+- `model` 字段填控制台真实存在的模型 ID（Grok 系列示例用 `grok-4.5`）
 - `env_key` 对应的环境变量里放你的 Fuck2API ApiKey
 :::
 
 ### 也可以直接把 Key 写进配置（不推荐）
 
 ```toml
-[model.fuck2api-gpt]
-model = "gpt-4o"
+[model.fuck2api-grok]
+model = "grok-4.5"
 base_url = "https://fxxkapi.top/v1"
-name = "Fuck2API · GPT"
+name = "Fuck2API · Grok"
 api_key = "sk-你的密钥"
 ```
 
@@ -229,9 +229,9 @@ grok "帮我看一下当前仓库结构"
 
 | 方式 | 操作 |
 | --- | --- |
-| 斜杠命令 | `/model fuck2api-gpt` 或 `/m fuck2api-gpt` |
+| 斜杠命令 | `/model fuck2api-grok` 或 `/m fuck2api-grok` |
 | 快捷键 | 在滚动区按 `Ctrl+M` 打开模型选择器 |
-| 启动参数 | `grok -m fuck2api-gpt` |
+| 启动参数 | `grok -m fuck2api-grok` |
 
 启动后进行简单对话，能正常返回即说明配置成功。
 
