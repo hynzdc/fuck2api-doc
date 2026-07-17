@@ -16,27 +16,74 @@ https://fxxkapi.top/v1
 
 ::: tip 提示
 先在 [ApiKey 管理](/guide/apikey) 创建密钥，并确认余额充足。  
-Grok 支持自定义 OpenAI 兼容端点，非常适合对接 Fuck2API。
+Grok 支持自定义 OpenAI 兼容端点，非常适合对接 Fuck2API。  
+Base URL 一般写到 `/v1` 即可，不要写到 `/chat/completions`。Grok Build 会自动拼接接口路径。
 :::
 
 ## 1. 安装 Grok Build
 
+安装完成后的命令是 `grok`。
+
 ### macOS / Linux / Windows Git Bash
+
+打开终端，执行官方安装命令：
 
 ```bash
 curl -fsSL https://x.ai/cli/install.sh | bash
 ```
 
+如果 `x.ai` 域名连接失败，可以使用备用安装源：
+
+```bash
+curl -fsSL https://storage.googleapis.com/grok-build-public-artifacts/cli/install.sh | bash
+```
+
+安装完成后，重新打开终端，或者执行：
+
+```bash
+source ~/.zshrc
+```
+
 ### Windows（PowerShell）
+
+打开 PowerShell，执行官方安装命令：
 
 ```powershell
 irm https://x.ai/cli/install.ps1 | iex
 ```
 
-安装完成后验证：
+如果 `x.ai` 域名连接失败，可以使用备用安装源：
+
+```powershell
+irm https://storage.googleapis.com/grok-build-public-artifacts/cli/install.ps1 | iex
+```
+
+安装完成后，重新打开 PowerShell。
+
+如果当前窗口里找不到 `grok`，可以先关闭 PowerShell 再打开，或者检查用户环境变量 `Path` 中是否包含：
+
+```text
+%USERPROFILE%\.grok\bin
+```
+
+### 验证安装
+
+macOS / Windows 都可以执行：
 
 ```bash
 grok --version
+```
+
+如果能看到类似输出，说明安装成功：
+
+```text
+grok 0.2.82
+```
+
+查看帮助：
+
+```bash
+grok --help
 ```
 
 更新到最新版：
@@ -44,6 +91,31 @@ grok --version
 ```bash
 grok update
 ```
+
+### 安装后找不到 `grok`
+
+**macOS：** 先执行 `source ~/.zshrc`。如果仍然找不到：
+
+```bash
+export PATH="$HOME/.grok/bin:$PATH"
+grok --version
+```
+
+**Windows PowerShell：** 先重新打开 PowerShell。如果仍然找不到，临时添加到当前窗口：
+
+```powershell
+$env:Path="$env:USERPROFILE\.grok\bin;$env:Path"
+grok --version
+```
+
+也可以永久添加用户环境变量：
+
+```powershell
+$oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
+[Environment]::SetEnvironmentVariable("Path", "$env:USERPROFILE\.grok\bin;$oldPath", "User")
+```
+
+然后重新打开 PowerShell。
 
 ## 2. 找到 Grok 配置文件
 
@@ -102,7 +174,7 @@ model = "grok-4.5"                        # 发给上游的真实模型名，按
 base_url = "https://fxxkapi.top/v1"       # Fuck2API OpenAI 兼容地址
 name = "Fuck2API · Grok"
 description = "经 Fuck2API 中转的 Grok 模型"
-env_key = "F2_API_KEY"                    # 从环境变量读 Key（更安全）
+api_key = "sk-你的密钥"                    # 填入你的 Fuck2API ApiKey
 api_backend = "chat_completions"          # 默认就是 chat_completions，可省略
 context_window = 128000
 
@@ -111,7 +183,7 @@ model = "claude-sonnet-4"
 base_url = "https://fxxkapi.top/v1"
 name = "Fuck2API · Claude"
 description = "经 Fuck2API 中转的 Claude 模型"
-env_key = "F2_API_KEY"
+api_key = "sk-你的密钥"
 api_backend = "chat_completions"
 context_window = 200000
 
@@ -119,49 +191,54 @@ context_window = 200000
 model = "gemini-2.5-pro"
 base_url = "https://fxxkapi.top/v1"
 name = "Fuck2API · Gemini"
-env_key = "F2_API_KEY"
+api_key = "sk-你的密钥"
 api_backend = "chat_completions"
 context_window = 1000000
 ```
 
 ::: warning 重要
-- `base_url` 必须是 **`https://fxxkapi.top/v1`**（带 `/v1`）
+- `base_url` 必须是 **`https://fxxkapi.top/v1`**（带 `/v1`），不要写成 `/chat/completions`
 - `model` 字段填控制台真实存在的模型 ID（Grok 系列示例用 `grok-4.5`）
-- `env_key` 对应的环境变量里放你的 Fuck2API ApiKey
+- `api_key` 填入你在 [Fuck2API 后台](https://fxxkapi.top) 生成的 ApiKey
+- 不要把 API Key 发给别人，也不要提交到 Git 仓库
 :::
 
-### 也可以直接把 Key 写进配置（不推荐）
+## 4. 纯环境变量快速法（不改 config 也能试）
 
-```toml
-[model.fuck2api-grok]
-model = "grok-4.5"
-base_url = "https://fxxkapi.top/v1"
-name = "Fuck2API · Grok"
-api_key = "sk-你的密钥"
+如果你只想先跑通，也可以不改 `config.toml`，用环境变量连接中转站：
+
+```text
+XAI_API_KEY
+GROK_XAI_API_BASE_URL
 ```
 
-更推荐用环境变量，避免 Key 明文落盘后误提交。
+其中：
 
-## 4. 设置 ApiKey 环境变量
+- `XAI_API_KEY` 填中转站提供的 API Key
+- `GROK_XAI_API_BASE_URL` 填中转站提供的 Base URL（写到 `/v1`）
+
+### 当前终端临时可用
 
 ::: code-group
 
 ```bash [macOS / Linux]
-export F2_API_KEY="sk-你的密钥"
-# 可选：同时给整站模型列表用
 export XAI_API_KEY="sk-你的密钥"
+export GROK_XAI_API_BASE_URL="https://fxxkapi.top/v1"
+# 可选：同时给整站模型列表用
 export GROK_MODELS_BASE_URL="https://fxxkapi.top/v1"
+grok
 ```
 
 ```powershell [Windows PowerShell]
-$env:F2_API_KEY = "sk-你的密钥"
 $env:XAI_API_KEY = "sk-你的密钥"
+$env:GROK_XAI_API_BASE_URL = "https://fxxkapi.top/v1"
 $env:GROK_MODELS_BASE_URL = "https://fxxkapi.top/v1"
+grok
 ```
 
 ```cmd [Windows CMD]
-set F2_API_KEY=sk-你的密钥
 set XAI_API_KEY=sk-你的密钥
+set GROK_XAI_API_BASE_URL=https://fxxkapi.top/v1
 set GROK_MODELS_BASE_URL=https://fxxkapi.top/v1
 ```
 
@@ -172,35 +249,20 @@ set GROK_MODELS_BASE_URL=https://fxxkapi.top/v1
 ::: code-group
 
 ```bash [macOS / Linux zsh]
-# 写入 ~/.zshrc
-echo 'export F2_API_KEY="sk-你的密钥"' >> ~/.zshrc
 echo 'export XAI_API_KEY="sk-你的密钥"' >> ~/.zshrc
+echo 'export GROK_XAI_API_BASE_URL="https://fxxkapi.top/v1"' >> ~/.zshrc
 echo 'export GROK_MODELS_BASE_URL="https://fxxkapi.top/v1"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
 ```powershell [Windows 用户环境变量]
-setx F2_API_KEY "sk-你的密钥"
-setx XAI_API_KEY "sk-你的密钥"
-setx GROK_MODELS_BASE_URL "https://fxxkapi.top/v1"
+[Environment]::SetEnvironmentVariable("XAI_API_KEY", "sk-你的密钥", "User")
+[Environment]::SetEnvironmentVariable("GROK_XAI_API_BASE_URL", "https://fxxkapi.top/v1", "User")
+[Environment]::SetEnvironmentVariable("GROK_MODELS_BASE_URL", "https://fxxkapi.top/v1", "User")
 # 重新打开终端后生效
 ```
 
 :::
-
-::: tip 凭证优先级（Grok 官方逻辑）
-对某个自定义模型：`api_key` 字段 > `env_key` 环境变量 > 登录 session > `XAI_API_KEY`
-:::
-
-## 5. 纯环境变量快速法（不改 config 也能试）
-
-如果你只想先跑通，可以：
-
-```bash
-export GROK_MODELS_BASE_URL="https://fxxkapi.top/v1"
-export XAI_API_KEY="sk-你的密钥"
-grok
-```
 
 此时 Grok 会：
 
@@ -208,7 +270,11 @@ grok
 2. 用 `Authorization: Bearer <XAI_API_KEY>` 访问中转
 3. 不再依赖 `grok login` 的浏览器登录
 
-## 6. 启动并验证
+::: tip 凭证优先级（Grok 官方逻辑）
+对某个自定义模型：`api_key` 字段 > `env_key` 环境变量 > 登录 session > `XAI_API_KEY`
+:::
+
+## 5. 启动并验证
 
 进入项目目录后启动：
 
@@ -217,10 +283,35 @@ cd /path/to/your/project
 grok
 ```
 
+Windows PowerShell 示例：
+
+```powershell
+cd C:\path\to\your\project
+grok
+```
+
 或直接带提示词：
 
 ```bash
 grok "帮我看一下当前仓库结构"
+```
+
+单轮输出，不进入交互界面：
+
+```bash
+grok -p "解释一下这个项目的目录结构"
+```
+
+列出可用模型：
+
+```bash
+grok models
+```
+
+继续最近一次会话：
+
+```bash
+grok --continue
 ```
 
 ### 切换到 Fuck2API 模型
@@ -235,4 +326,52 @@ grok "帮我看一下当前仓库结构"
 
 启动后进行简单对话，能正常返回即说明配置成功。
 
+若使用纯环境变量方式，执行 `grok models` 时若看到类似 `You are using XAI_API_KEY.` 且能正常列出模型，也说明配置已生效。
+
 ![启动并验证 Grok Build](https://pic-es.oss-cn-shanghai.aliyuncs.com/20260711171421889.png)
+
+## 6. 常见问题
+
+### 安装时连不上 `x.ai`
+
+macOS / Linux：
+
+```bash
+curl -fsSL https://storage.googleapis.com/grok-build-public-artifacts/cli/install.sh | bash
+```
+
+Windows PowerShell：
+
+```powershell
+irm https://storage.googleapis.com/grok-build-public-artifacts/cli/install.ps1 | iex
+```
+
+### 配置后请求失败
+
+macOS / Linux 检查：
+
+```bash
+echo $XAI_API_KEY
+echo $GROK_XAI_API_BASE_URL
+grok models
+```
+
+Windows PowerShell 检查：
+
+```powershell
+echo $env:XAI_API_KEY
+echo $env:GROK_XAI_API_BASE_URL
+grok models
+```
+
+确认：
+
+- API Key 是中转站提供的完整 Key
+- Base URL 写到 `/v1`
+- Base URL 不要写成 `/chat/completions`
+- 网络可以访问中转站域名
+- 中转站已经兼容 `/models` 和 `/chat/completions` 接口
+
+### 安全提醒
+
+不要把 API Key 发给别人，也不要提交到 Git 仓库。推荐保存在本机配置、环境变量或安全的密钥管理工具里。
