@@ -530,3 +530,4 @@ https://fxxkapi.top
 ## 相关
 
 - [OAI 生图接口对接](/api/images)
+- [Grok 生图接口对接](/api/grok-images)
