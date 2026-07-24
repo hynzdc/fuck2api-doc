@@ -164,11 +164,11 @@ export default defineConfig({
           collapsed: false,
           items: [
             {
-              text: '<span class="f2-sb-ico f2-sb-ico--chat" aria-hidden="true"></span>OAI 对话接口对接',
+              text: '<img class="f2-sb-icon" src="/icons/openai.png" alt="" />OAI 对话接口对接',
               link: '/api/overview',
             },
             {
-              text: '<span class="f2-sb-ico f2-sb-ico--image" aria-hidden="true"></span>OAI 生图接口对接',
+              text: '<img class="f2-sb-icon" src="/icons/openai.png" alt="" />OAI 生图接口对接',
               link: '/api/images',
             },
             {
