@@ -230,21 +230,17 @@ html.dark {
   color-scheme: dark;
 }
 
-/* ========== Theme switch: circular reveal from appearance button ==========
- * Powered by View Transitions API (see themeTransition.ts).
- * New theme expands as a circle from the top-right switch control.
+/* ========== Theme switch: circular reveal of real content ==========
+ * View Transitions + clip-path (themeTransition.ts).
+ * Origin from appearance button via pointerdown.
+ * No solid white/black overlay.
  */
 
-/*
- * Kill ALL default view-transition animations.
- * Otherwise the first toggle often plays a full-page cross-fade
- * (looks like it expands from the top-center) before our circle runs.
- */
+/* Kill default VT cross-fade so only our circle wipe runs */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none !important;
   mix-blend-mode: normal;
-  isolation: isolate;
 }
 
 ::view-transition-group(root) {
@@ -258,40 +254,32 @@ html.dark {
 
 ::view-transition-new(root) {
   z-index: 2147483646;
-  /* Clip-path is driven by Web Animations API in themeTransition.ts */
+  /* clip-path animated by Web Animations API in themeTransition.ts */
 }
 
 /*
- * Critical for smoothness: when the html.dark class flips, dozens of
- * color/background transitions would otherwise run in parallel with the
- * circle wipe and make the switch feel laggy / stuttery.
+ * When html.dark flips, kill page color/background transitions so they
+ * don't fight the circle wipe (major source of jank).
  */
 html.f2-theme-animating,
 html.f2-theme-animating * {
   transition: none !important;
-  /* Keep view-transition WAAPI intact — it does not use CSS transitions */
 }
 
 html.f2-theme-animating {
   pointer-events: none;
-  /* Avoid scroll anchoring jumps mid-animation */
   overflow-anchor: none;
 }
 
-/* Fallback overlay circle (browsers without View Transitions) */
+/* Legacy solid overlay from older builds — force-hide if any remain */
 .f2-theme-circle {
-  contain: layout style;
-  backface-visibility: hidden;
+  display: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none !important;
-  }
-
-  .f2-theme-circle {
-    transition: none !important;
   }
 }
 
