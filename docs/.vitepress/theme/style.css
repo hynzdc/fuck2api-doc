@@ -230,34 +230,68 @@ html.dark {
   color-scheme: dark;
 }
 
-/* ========== Theme switch: circular reveal from click ==========
+/* ========== Theme switch: circular reveal from appearance button ==========
  * Powered by View Transitions API (see themeTransition.ts).
- * New theme expands as a circle from the switch / pointer.
+ * New theme expands as a circle from the top-right switch control.
  */
 
+/*
+ * Kill ALL default view-transition animations.
+ * Otherwise the first toggle often plays a full-page cross-fade
+ * (looks like it expands from the top-center) before our circle runs.
+ */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: none;
+  animation: none !important;
   mix-blend-mode: normal;
+  isolation: isolate;
+}
+
+::view-transition-group(root) {
+  animation: none !important;
 }
 
 ::view-transition-old(root) {
   z-index: 1;
+  opacity: 1;
 }
 
 ::view-transition-new(root) {
-  z-index: 9999;
+  z-index: 2147483646;
+  /* Clip-path is driven by Web Animations API in themeTransition.ts */
 }
 
-/* Avoid double-animating while the circle is running */
+/*
+ * Critical for smoothness: when the html.dark class flips, dozens of
+ * color/background transitions would otherwise run in parallel with the
+ * circle wipe and make the switch feel laggy / stuttery.
+ */
+html.f2-theme-animating,
+html.f2-theme-animating * {
+  transition: none !important;
+  /* Keep view-transition WAAPI intact — it does not use CSS transitions */
+}
+
 html.f2-theme-animating {
   pointer-events: none;
+  /* Avoid scroll anchoring jumps mid-animation */
+  overflow-anchor: none;
+}
+
+/* Fallback overlay circle (browsers without View Transitions) */
+.f2-theme-circle {
+  contain: layout style;
+  backface-visibility: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none !important;
+  }
+
+  .f2-theme-circle {
+    transition: none !important;
   }
 }
 
