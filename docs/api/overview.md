@@ -529,4 +529,4 @@ https://fxxkapi.top
 
 ## 相关
 
-- [生图接口文档对接](/api/images)
+- [OAI 生图接口对接](/api/images)

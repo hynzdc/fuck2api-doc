@@ -168,7 +168,7 @@ export default defineConfig({
               link: '/api/overview',
             },
             {
-              text: '<span class="f2-sb-ico f2-sb-ico--image" aria-hidden="true"></span>生图接口文档对接',
+              text: '<span class="f2-sb-ico f2-sb-ico--image" aria-hidden="true"></span>OAI 生图接口对接',
               link: '/api/images',
             },
           ],
