@@ -48,6 +48,10 @@ const guideSidebar = [
         text: '<img class="f2-sb-icon" src="/icons/microsoft.png" alt="" />WSL 配置',
         link: '/guide/cli/wsl',
       },
+      {
+        text: '<img class="f2-sb-icon" src="/icons/pi.svg" alt="" />Pi 配置',
+        link: '/guide/cli/pi',
+      },
     ],
   },
   {
