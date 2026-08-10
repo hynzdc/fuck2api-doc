@@ -16,7 +16,7 @@
 
 ### 内容
 
-- 快速开始全流程（注册、充值、Key、模型、通用配置）
+- 快速开始全流程（简介、Key、模型、通用配置）
 - 客户端专项并入快速开始侧栏：Claude Code、Codex、Gemini、OpenCode、Cherry Studio、cURL、Python、Node
 - API 接入（Chat / Responses / Embeddings / Images / Stream）
 - FAQ 与故障排查手册

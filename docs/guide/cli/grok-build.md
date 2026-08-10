@@ -1,6 +1,6 @@
 # Grok Build 配置
 
-本文介绍如何让 **Grok Build**（`grok` CLI / TUI）通过 Fuck2API 中转调用模型。
+本文介绍如何让 **Grok Build**（`grok` CLI / TUI）通过 Fuck2API 调用模型。
 
 官方 Base URL：
 
@@ -173,7 +173,7 @@ models_base_url = "https://fxxkapi.top/v1"
 model = "grok-4.5"                        # 发给上游的真实模型名，按控制台可用 Grok 模型改
 base_url = "https://fxxkapi.top/v1"       # Fuck2API OpenAI 兼容地址
 name = "Fuck2API · Grok"
-description = "经 Fuck2API 中转的 Grok 模型"
+description = "经 Fuck2API 接入的 Grok 模型"
 api_key = "sk-你的密钥"                    # 填入你的 Fuck2API ApiKey
 api_backend = "chat_completions"          # 默认就是 chat_completions，可省略
 context_window = 128000
@@ -182,7 +182,7 @@ context_window = 128000
 model = "claude-sonnet-4"
 base_url = "https://fxxkapi.top/v1"
 name = "Fuck2API · Claude"
-description = "经 Fuck2API 中转的 Claude 模型"
+description = "经 Fuck2API 接入的 Claude 模型"
 api_key = "sk-你的密钥"
 api_backend = "chat_completions"
 context_window = 200000
@@ -205,7 +205,7 @@ context_window = 1000000
 
 ## 4. 纯环境变量快速法（不改 config 也能试）
 
-如果你只想先跑通，也可以不改 `config.toml`，用环境变量连接中转站：
+如果你只想先跑通，也可以不改 `config.toml`，用环境变量连接 Fuck2API：
 
 ```text
 XAI_API_KEY
@@ -214,8 +214,8 @@ GROK_XAI_API_BASE_URL
 
 其中：
 
-- `XAI_API_KEY` 填中转站提供的 API Key
-- `GROK_XAI_API_BASE_URL` 填中转站提供的 Base URL（写到 `/v1`）
+- `XAI_API_KEY` 填 Fuck2API 提供的 API Key
+- `GROK_XAI_API_BASE_URL` 填 Fuck2API 的 Base URL（写到 `/v1`）
 
 ### 当前终端临时可用
 
@@ -267,7 +267,7 @@ source ~/.zshrc
 此时 Grok 会：
 
 1. 用 `https://fxxkapi.top/v1` 拉模型列表（请求 `/v1/models`）
-2. 用 `Authorization: Bearer <XAI_API_KEY>` 访问中转
+2. 用 `Authorization: Bearer <XAI_API_KEY>` 访问 Fuck2API
 3. 不再依赖 `grok login` 的浏览器登录
 
 ::: tip 凭证优先级（Grok 官方逻辑）
@@ -366,11 +366,11 @@ grok models
 
 确认：
 
-- API Key 是中转站提供的完整 Key
+- API Key 是 Fuck2API 提供的完整 Key
 - Base URL 写到 `/v1`
 - Base URL 不要写成 `/chat/completions`
-- 网络可以访问中转站域名
-- 中转站已经兼容 `/models` 和 `/chat/completions` 接口
+- 网络可以访问 Fuck2API 域名
+- Fuck2API 已兼容 `/models` 和 `/chat/completions` 接口
 
 ### 安全提醒
 

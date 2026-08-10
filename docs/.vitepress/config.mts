@@ -7,12 +7,8 @@ const guideSidebar = [
     collapsed: false,
     items: [
       {
-        text: '<span class="f2-sb-ico f2-sb-ico--intro" aria-hidden="true"></span>Fuck2API简介',
+        text: '<span class="f2-sb-ico f2-sb-ico--intro" aria-hidden="true"></span>Fuck2API 简介',
         link: '/guide/intro',
-      },
-      {
-        text: '<span class="f2-sb-ico f2-sb-ico--recharge" aria-hidden="true"></span>充值',
-        link: '/guide/recharge',
       },
       {
         text: '<span class="f2-sb-ico f2-sb-ico--apikey" aria-hidden="true"></span>ApiKey 管理',
@@ -74,7 +70,7 @@ const guideSidebar = [
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Fuck2API',
-  description: 'Fuck2API 官方文档 — 统一、稳定、极致性能的 AI API 中转平台使用教程',
+  description: 'Fuck2API 文档 — FuckLab 内部实验室 AI 模型统一接入服务',
   lang: 'zh-CN',
   cleanUrls: true,
   lastUpdated: true,
@@ -100,7 +96,7 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#ff3b30' }],
     ['meta', { name: 'og:type', content: 'website' }],
     ['meta', { name: 'og:title', content: 'Fuck2API Docs' }],
-    ['meta', { name: 'og:description', content: '高端 AI API 中转 · 统一接入 · 极致体验' }],
+    ['meta', { name: 'og:description', content: 'FuckLab 内部实验室 · AI 模型统一接入 · Fuck2API' }],
     ['meta', { name: 'og:image', content: '/logo.png' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
   ],

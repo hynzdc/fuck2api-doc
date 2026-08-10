@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "fuck2api 官方使用文档 — 高端、易维护的 API 中转教程站",
+  "description": "fuck2api 使用文档 — FuckLab 内部实验室 AI 模型统一接入服务",
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",

@@ -360,7 +360,7 @@ for chunk in stream:
 
 ## 9. Tool Calling（可选）
 
-仅在所选模型和中转渠道支持 Tool Calling 时使用。
+仅在所选模型和上游渠道支持 Tool Calling 时使用。
 
 ### 第一次请求：向模型声明工具
 
