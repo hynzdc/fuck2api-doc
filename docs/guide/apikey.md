@@ -6,9 +6,7 @@
 
 ![image-20260711143915568](https://pic-es.oss-cn-shanghai.aliyuncs.com/20260711143915908.png)
 
-2. 如图点击创建密钥，选择自己想要的分组
-
-![image-20260711144117880](https://pic-es.oss-cn-shanghai.aliyuncs.com/20260711144117952.png)
+2. 点击创建密钥，填写名称并选择分组后确认即可
 
 ### 注意
 
